@@ -26,9 +26,27 @@
 		
 		
 		<h4>while</h4>
-		
+		<%
+			int k = 1;
+			while(k <= 10) {
+		%>
+			<p>k : <%= k %> </p>
+		<%
+				k++;
+			}
+		%>
 		
 		<h4>구구단</h4>
+		
+		<table border="1">
+			<% for(int x = 1; x <= 9; x++){ %>
+			<tr>
+				<% for(int y = 2; y <= 9; y++){ %>
+				<td><%= y %> x <%= x %> = <%= y * x %></td>	
+				<% } %>	
+			</tr>
+			<% } %>
+		</table>
 		
 		
 	</body>
