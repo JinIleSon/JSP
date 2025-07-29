@@ -4,6 +4,13 @@
 	session.removeAttribute("sessUser");
 	session.invalidate(); // 세션 아이디 지우기
 	
+	// 자동로그인 쿠키 해제(삭제)
+	Cookie autoCookie = new Cookie("auto", null);
+	autoCookie.setMaxAge(0); // 쿠키 수명을 0으로 해서 쿠키 삭제
+	autoCookie.setPath("/");
+	
+	response.addCookie(autoCookie);
+	
 	// 페이지 이동
 	response.sendRedirect("../session.jsp");
 %>

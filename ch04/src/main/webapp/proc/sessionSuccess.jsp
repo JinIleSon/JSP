@@ -5,6 +5,12 @@
 	// 현재 세션(클라이언트) 사용자 객체 가져오기
 	UserVO sessUser = (UserVO) session.getAttribute("sessUser");
 
+	// 로그인 하지 않고 접근하면 로그인 화면 이동
+	if(sessUser == null) {
+		response.sendRedirect("../session.jsp");
+		
+		return ;
+	}
 %>
 
 <!DOCTYPE html>
@@ -18,7 +24,7 @@
 		<p>
 			<%= session.getId() %><br/>
 			<%= sessUser.getId() %>님 반갑습니다.<br/>
-			<a href="./sessionLogout">로그아웃</a>
+			<a href="./sessionLogout.jsp">로그아웃</a>
 		</p>
 		
 	</body>

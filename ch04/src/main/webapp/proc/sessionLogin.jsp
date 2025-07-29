@@ -1,19 +1,40 @@
 <%@page import="vo.UserVO"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	// 전송 데이터 수진
+	// 전송 데이터 수신
 	String id = request.getParameter("id");
 	String pw = request.getParameter("pw");
+	String auto = request.getParameter("auto");
 	
-	// 데이터베이스 사용자 조회 후 사용자 객체 생성
-	UserVO vo = new UserVO();
-	vo.setId(id);
-	vo.setPw(pw);
-	vo.setName("김유신");
-	vo.setAge(23);
+	System.out.println("id : " + id);
+	System.out.println("pw : " + pw);
+	System.out.println("auto : " + auto);
+	
+	// 데이터베이스 사용자 조회 후 사용자 객체 생성	
+	UserVO vo = null;
+	
+	if(id.equals("abc123") && pw.equals("1234")){
+		vo = new UserVO();
+		vo.setId(id);
+		vo.setPw(pw);
+		vo.setName("김유신");
+		vo.setAge(23);
+	}
 	
 	// abc123, 1234 회원 간주
 	if(vo != null) {
+		
+		// 자동로그인 처리
+		if(auto != null && auto.equals("true")) {
+			
+			// 사용자 아이디로 auto 쿠키 생성
+			Cookie autoCookie = new Cookie("auto", id);
+			autoCookie.setMaxAge(60 * 60 * 24 * 7); // 7일까지 쿠키 유효
+			autoCookie.setPath("/"); // 쿠키를 사용할 수 있는 모든 경로 "/"
+			
+			response.addCookie(autoCookie);
+			
+		}
 		
 		// 사용자가 회원이면 세션에 사용자 객체 저장		
 		session.setAttribute("sessUser", vo);
