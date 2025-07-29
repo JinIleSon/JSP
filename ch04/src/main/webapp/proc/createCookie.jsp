@@ -12,10 +12,15 @@
 		// 회원이 맞을 경우 쿠키 생성
 		Cookie cookie = new Cookie("username", id); // 키-값 쿠키 생성
 		cookie.setMaxAge(60 * 3); // 쿠키 수명 3분
-		cookie.setPath(path); // 쿠키 유효 범위. "/"는 전역
+		cookie.setPath(path); // 쿠키 유효 범위. 
+		
+		Cookie cookie2 = new Cookie("userpass", pw); // 키-값 쿠키 생성
+		cookie.setMaxAge(60 * 1); // 쿠키 수명 1분
+		cookie.setPath(path); // 쿠키 유효 범위. 
 		
 		// 응답 객체로 클라이언트 쿠키 전송
 		response.addCookie(cookie);
+		response.addCookie(cookie2);
 		
 		// 리다이렉트(페이지 이동)
 		response.sendRedirect("./resultCookie.jsp");
