@@ -61,16 +61,19 @@
         		<th>파일명</th>
         		<th>관리</th>
         	</tr>
+        	
+        	<% for(FileDTO fd : files){ %>
         	<tr>
-        		<td>1</td>
-        		<td>파일 업로드 테스트</td>
-        		<td>김유신</td>
-        		<td>세부훈련시간.pdf</td>
+        		<td><%= fd.getNo() %></td>
+        		<td><%= fd.getTitle() %></td>
+        		<td><%= fd.getName() %></td>
+        		<td><a href="/ch06/proc/fileDownload.jsp?no=<%= fd.getNo() %>"><%= fd.getoName() %></a></td>
         		<td>
-        			<a href="#">삭제</a>
-        			<a href="#">다운로드</a>
+        			<a href="/ch06/proc/fileDelete.jsp?no=<%= fd.getNo() %>">삭제</a>
+        			<a href="/ch06/proc/fileDownload.jsp?no=<%= fd.getNo() %>">다운로드</a>
         		</td>
         	</tr>
+        	<% } %>
         </table>
     </body>
 </html>
