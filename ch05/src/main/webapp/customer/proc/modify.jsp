@@ -1,40 +1,49 @@
 <%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.DriverManager"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
+<%@page import="java.sql.DriverManager"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	String user_id = request.getParameter("user_id");
+	// 전송 데이터 수신
+	String cid = request.getParameter("cid");
 	String name = request.getParameter("name");
 	String hp = request.getParameter("hp");
-	String age = request.getParameter("age");
-	
-	// 데이터베이스 UPDATE
-	String host = "jdbc:oracle:thin:@localhost:1521:xe"; 
-	String user = "shop"; 
-	String pass = "1234";
+	String address = request.getParameter("address");
+	String rdate = request.getParameter("rdate");	
 	
 	try {
-		// 드라이버 로드
-		Class.forName("oracle.jdbc.driver.OracleDriver");
+		// DBCP 커넥션풀 객체 가져오기
+		Context initCtx = new InitialContext(); // 환경 객체 생성
+		Context ctx = (Context) initCtx.lookup("java:comp/env"); // java 기본 환경 객체 검색
+		DataSource ds = (DataSource) ctx.lookup("jdbc/thswlsdlf0000"); // jdbc/thswlsdlf0000 커넥션풀 객체 검색
 		
-		Connection conn = DriverManager.getConnection(host, user, pass);
+		// 커넥션풀에서 접속 커넥션 가져오기
+		Connection conn = ds.getConnection();
 		
-		String sql = "UPDATE CUSTOMER SET NAME=?, HP=?, AGE=? WHERE USER_ID = ?";
+		// SQL 실행객체 생성
+		String sql = "UPDATE CUSTOMER SET NAME=?, HP=?, ADDRESS=?, RDATE=? WHERE CID=?";
 		PreparedStatement psmt = conn.prepareStatement(sql);
 		psmt.setString(1, name);
 		psmt.setString(2, hp);
-		psmt.setString(3, age);
-		psmt.setString(4, user_id);
-
+		psmt.setString(3, address);
+		psmt.setString(4, rdate);
+		psmt.setString(5, cid);
+		
+		// SQL 실행
 		psmt.executeUpdate();
 		
+		// 종료(커넥션 반납)
 		psmt.close();
-		conn.close();
+		conn.close();		
 		
-	}catch(Exception e) {
+	}catch(Exception e){
 		e.printStackTrace();
 	}
 	
-	response.sendRedirect("../list.jsp");
+	// 목록 이동
+	response.sendRedirect("/ch05/customer/list.jsp");
+
 %>

@@ -1,22 +1,22 @@
+<%@page import="javax.sql.DataSource"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.naming.Context"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	// 전송 데이터 수신
-	String user_id = request.getParameter("user_id");
+	String cid = request.getParameter("cid");
 	
-	String host = "jdbc:oracle:thin:@localhost:1521:xe"; 
-	String user = "thswlsdlf0000";
-	String pass = "1234";
-	
-	try {
-	
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection conn = DriverManager.getConnection(host, user, pass);
+	try {	
+		Context ctx = (Context) new InitialContext().lookup("java:comp/env");				
+		DataSource ds = (DataSource) ctx.lookup("jdbc/thswlsdlf0000");
+
+		Connection conn = ds.getConnection();
 		
-		PreparedStatement psmt = conn.prepareStatement("DELETE FROM CUSTOMER WHERE USER_ID = ?");
-		psmt.setString(1, user_id);
+		PreparedStatement psmt = conn.prepareStatement("DELETE FROM CUSTOMER WHERE CID = ?");
+		psmt.setString(1, cid);
 		
 		psmt.executeUpdate();
 		
@@ -28,5 +28,5 @@
 	}
 	
 	// 목록이동
-	response.sendRedirect("./list.jsp");
+	response.sendRedirect("/ch05/customer/list.jsp");
 %>

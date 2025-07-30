@@ -1,9 +1,8 @@
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="javax.naming.InitialContext"%>
 <%@page import="javax.naming.Context"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.DriverManager"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
 	// 전송 데이터 수신
@@ -11,12 +10,7 @@
 	String name = request.getParameter("name");
 	String hp = request.getParameter("hp");
 	String address = request.getParameter("address");
-	String rdate = request.getParameter("rdate");
-	
-	// 데이터베이스 INSERT
-	String host = "jdbc:oracle:thin:@localhost:1521:xe"; 
-	String user = "thswlsdlf0000"; 
-	String pass = "1234";
+	String rdate = request.getParameter("rdate");	
 	
 	try {
 		// DBCP 커넥션풀 객체 가져오기
@@ -41,12 +35,13 @@
 		
 		// 종료(커넥션 반납)
 		psmt.close();
-		conn.close();
+		conn.close();		
 		
 	}catch(Exception e){
 		e.printStackTrace();
 	}
 	
-	// 목록이동
+	// 목록 이동
 	response.sendRedirect("/ch05/customer/list.jsp");
+
 %>

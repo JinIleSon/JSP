@@ -1,44 +1,45 @@
 <%@page import="java.util.ArrayList"%>
+<%@page import="vo.CustomerDTO"%>
 <%@page import="java.util.List"%>
-<%@page import="vo.User1VO"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
-<%@page import="java.net.ConnectException"%>
-<%@page import="java.sql.DriverManager"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="javax.naming.Context"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-	String host = "jdbc:oracle:thin:@localhost:1521:xe"; 
-	String user = "thswlsdlf0000"; 
-	String pass = "1234";
-	
-	List<User1VO> users = new ArrayList<>();
-	
+	// 목록 출력 list 생성
+	List<CustomerDTO> customers = new ArrayList<>();
+
 	try {
-		Class.forName("oracle.jdbc.driver.OracleDriver");
-		Connection conn = DriverManager.getConnection(host, user, pass);
+		// 자바 기본 환경 객체 검색(WAS 환경)
+		Context ctx = (Context) new InitialContext().lookup("java:comp/env"); // java 기본 환경 객체 검색
 		
+		// jdbc/thswlsdlf0000 커넥션풀 검색
+		DataSource ds = (DataSource) ctx.lookup("jdbc/thswlsdlf0000"); // jdbc/thswlsdlf0000 커넥션풀 객체 검색
+		
+		Connection conn = ds.getConnection();
 		Statement stmt = conn.createStatement();
 		
-		String sql = "SELECT * FROM CUSTOMER";
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = stmt.executeQuery("SELECT * FROM CUSTOMER");
 		
-		while(rs.next()){
+		while (rs.next()) {
+			CustomerDTO dto = new CustomerDTO();
+			dto.setCid(rs.getString(1));
+			dto.setName(rs.getString(2));
+			dto.setHp(rs.getString(3));
+			dto.setAddress(rs.getString(4));
+			dto.setRdate(rs.getString(5));
 			
-			
-			
-			User1VO vo = new User1VO();
-			vo.setUser_id(rs.getString(1));
-			vo.setName(rs.getString(2));
-			vo.setHp(rs.getString(3));
-			vo.setAge(rs.getInt(4));
-			
-			users.add(vo);
+			customers.add(dto);
 		}
 		
+		// 커넥션 반납
 		rs.close();
 		stmt.close();
 		conn.close();
+		
 		
 	}catch(Exception e) {
 		e.printStackTrace();
@@ -50,36 +51,36 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>user1::list</title>
+		<title>customer::list</title>
 	</head>
 	<body>
-		<h3>User1 목록</h3>
+		<h3>Customer 목록</h3>
 		
-		<a href="../jdbc.jsp">처음으로</a>
+		<a href="../dbcp.jsp">처음으로</a>
 		<a href="./register.jsp">등록하기</a>
 		
 		<table border="1">
 			<tr>
-				<th>아이디</th> <!-- th는 컬럼제목 -->
+				<th>아이디</th>
 				<th>이름</th>
 				<th>휴대폰</th>
-				<th>나이</th>
+				<th>주소</th>
+				<th>등록일</th>
 				<th>관리</th>
 			</tr>
-			
-			<% for(User1VO user1VO : users){ %>
+			<% for(CustomerDTO customer : customers) { %>
 			<tr>
-				<td>C101</td>
-				<td>김유신</td>
-				<td>010-2111-0001</td>
-				<td>김해시</td>
-				<td>2022-01-01</td>
+				<td><%= customer.getCid() %></td>
+				<td><%= customer.getName() %></td>
+				<td><%= customer.getHp() %></td>
+				<td><%= customer.getAddress() %></td>
+				<td><%= customer.getRdate().substring(0, 10) %></td>
 				<td>
-					<a href="#">수정</a>
-					<a href="#">삭제</a>
+					<a href="/ch05/customer/modify.jsp?cid=<%= customer.getCid() %>">수정</a>
+					<a href="/ch05/customer/delete.jsp?cid=<%= customer.getCid() %>">삭제</a>
 				</td>
-			</tr>
-			<% } %>
-		</table>
+			</tr>		
+			<% } %>	
+		</table>		
 	</body>
 </html>
