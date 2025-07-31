@@ -43,6 +43,9 @@ public class RegisterController extends HttpServlet {
 		
 		// 서비스 요청
 		service.register(dto);
+		
+		// 이동
+		resp.sendRedirect("/ch09/user1/list.do");
 	}
 	
 	

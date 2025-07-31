@@ -11,7 +11,7 @@
 		<a href="/ch09">처음으로</a>
 		<a href="/ch09/user1/list.do">목록이동</a>
 		
-		<form action="./ch09/user1/register.do" method="post">
+		<form action="/ch09/user1/register.do" method="post">
 			<table border="1">
 				<tr>
 					<td>아이디</td>
