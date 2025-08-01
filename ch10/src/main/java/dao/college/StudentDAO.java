@@ -1,5 +1,8 @@
 package dao.college;
 
+import java.util.List;
+
+import dto.college.StudentDTO;
 import util.DBHelper;
 
 public class StudentDAO extends DBHelper {
@@ -10,15 +13,54 @@ public class StudentDAO extends DBHelper {
 	}
 	private StudentDAO() {}
 	
-	public void insertStudent() {}
+	private final String DBCP = "jdbc/college";
 	
-	public void selectStudent() {}
+	public void insertStudent(StudentDTO dto) {
+		try {
+			conn = getConnection(DBCP);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
-	public void selectAllStudent() {}
+	public StudentDTO selectStudent(String stdNo) {
+		try {
+			conn = getConnection(DBCP);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
-	public void updateStudent() {}
+	public List<StudentDTO> selectAllStudent() {
+		try {
+			conn = getConnection(DBCP);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
-	public void deleteStudent() {}
+	public void updateStudent(StudentDTO dto) {
+		try {
+			conn = getConnection(DBCP);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteStudent(String stdNo) {
+		try {
+			conn = getConnection(DBCP);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 }

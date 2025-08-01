@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.college.StudentService;
 import service.shop.CustomerService;
 
 @WebServlet("/college/student/list.do")
@@ -17,7 +18,7 @@ public class ListController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 	
-	private CustomerService service = CustomerService.INSTANCE;
+	private StudentService service = StudentService.INSTANCE;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

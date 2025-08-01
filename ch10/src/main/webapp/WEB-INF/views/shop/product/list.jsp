@@ -22,7 +22,7 @@
 				<th>등록일</th>
 				<th>관리</th>
 			</tr>
-			<c:forEach var="customer" items="${dtoList}">
+			<c:foreach var="customer" items="${dtoList}">
 			<tr>  <!--  손보기 -->
 				<td>${customer.cid}</td>
 				<td>${customer.name}</td>
@@ -34,7 +34,7 @@
 					<a href="">삭제</a>
 				</td>
 			</tr>
-			</c:forEach>
+			</c:foreach>
 		</table>		
 	</body>
 </html>
