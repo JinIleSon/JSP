@@ -1,5 +1,4 @@
 package dao;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,6 +10,9 @@ import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import dto.User1DTO;
 
@@ -25,6 +27,8 @@ public class User1DAO {
 	}
 	
 	private User1DAO() {}
+	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	// 기본 CRUD 메서드
 	public void insertUser1(User1DTO dto) {
@@ -47,7 +51,7 @@ public class User1DAO {
 			psmt.close();
 			conn.close();
 		}catch (Exception e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
 		}
 		
 	}
@@ -81,7 +85,7 @@ public class User1DAO {
 			conn.close();
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
 		}
 		
 		return dto;
@@ -116,7 +120,7 @@ public class User1DAO {
 			conn.close();
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
 		}
 		
 		return dtoList;
@@ -142,7 +146,7 @@ public class User1DAO {
 			conn.close();
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
 		}
 			
 		
@@ -165,7 +169,7 @@ public class User1DAO {
 			conn.close();
 			
 		}catch (Exception e) {
-			e.printStackTrace();
+			logger.warn(e.getMessage());
 		}
 		
 	}

@@ -11,6 +11,8 @@ public enum CustomerService {
 	// 싱글톤(enum 자체가 싱글톤)
 	INSTANCE;
 	
+	private CustomerService() {}
+	
 	private CustomerDAO dao = CustomerDAO.getInstance();
 	
 	public void register(CustomerDTO dto) {

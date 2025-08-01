@@ -1,7 +1,14 @@
 package dao.shop;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,6 +56,8 @@ public class CustomerDAO extends DBHelper{
 		
 		CustomerDTO dto = null;
 		
+		
+		
 		try {
 			conn = getConnection(DBCP);
 			
@@ -56,7 +65,7 @@ public class CustomerDAO extends DBHelper{
 			psmt = conn.prepareStatement(sql);
 			psmt.setString(1, cid);
 			
-			psmt.executeQuery();
+			rs = psmt.executeQuery();
 			
 			if(rs.next()) {
 				dto = new CustomerDTO();
@@ -84,7 +93,7 @@ public class CustomerDAO extends DBHelper{
 			String sql = "SELECT * FROM CUSTOMER";
 			rs = stmt.executeQuery(sql);
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				CustomerDTO dto = new CustomerDTO();
 				dto.setCid(rs.getString(1));
 				dto.setName(rs.getString(2));
@@ -102,10 +111,48 @@ public class CustomerDAO extends DBHelper{
 		return dtoList;
 	}
 	public void updateCustomer(CustomerDTO dto) {
-		
+		try {
+			Context ctx = (Context) new InitialContext().lookup("java:comp/env");
+			DataSource ds = (DataSource) ctx.lookup(DBCP);
+			
+			Connection conn = ds.getConnection();
+			
+			String sql = "UPDATE CUSTOMER SET CID=?, NAME=?, HP=?, ADDRESS=?, RDATE=? WHERE CID=?";
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getCid());
+			psmt.setString(2, dto.getName());
+			psmt.setString(3, dto.getHp());
+			psmt.setString(4, dto.getAddress());
+			psmt.setString(5, dto.getRdate());
+			psmt.setString(6, dto.getCid());
+			
+			psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+			
+		}catch (Exception e) {
+			logger.warn(e.getMessage());
+		}
 	}
 	public void deleteCustomer(String cid) {
-		
+		try {
+			Context ctx = (Context) new InitialContext().lookup("java:comp/env");
+			DataSource ds = (DataSource) ctx.lookup(DBCP);
+			
+			Connection conn = ds.getConnection();
+			
+			String sql = "DELETE FROM CUSTOMER WHERE CID=?";
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, cid);
+			
+			psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+		}catch (Exception e) {
+			logger.warn(e.getMessage());
+		}
 	}
 	
 }
