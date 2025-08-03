@@ -1,1 +1,8 @@
 /.metadata/
+**/.classpath
+**/.settings/
+Servers/
+*.class
+ch10/src/main/webapp/WEB-INF/web.xml
+ch10/src/main/webapp/WEB-INF/lib/jakarta.servlet-api-6.0.0.jar
+.gitignore
