@@ -14,23 +14,26 @@
 			<table border="1">
 				<tr>
 					<td>번호</td>
-					<td><input type="text" name="pname" value="${}" placeholder="번호 입력"/></td>
+					<td><input type="text" readonly name="pno" value="${ProductDTO.pno}" placeholder="번호 입력"/></td>
 				</tr>
 				<tr>
 					<td>제품이름</td>
-					<td><input type="text" name="pname" value="${}" placeholder="번호 입력"/></td>
+					<td><input type="text" name="pname" value="${ProductDTO.pname}" placeholder="제품이름 입력"/></td>
 				</tr>
 				<tr>
 					<td>재고량</td>
-					<td><input type="text" name="pname" value="${}" placeholder="번호 입력"/></td>
+					<td><input type="text" name="stock" value="${ProductDTO.stock}" placeholder="재고량 입력"/></td>
 				</tr>
 				<tr>
 					<td>가격</td>
-					<td><input type="text" name="pname" value="${}" placeholder="번호 입력"/></td>
+					<td><input type="text" name="price" value="${ProductDTO.price}" placeholder="가격 입력"/></td>
 				</tr>
 				<tr>
 					<td>회사</td>
-					<td><input type="text" name="pname" value="${}" placeholder="번호 입력"/></td>
+					<td><input type="text" name="company" value="${ProductDTO.company}" placeholder="회사 입력"/></td>
+				</tr>
+				<tr>
+					<td colspan="2" align="right"><input type="submit" value="수정하기"/></td>
 				</tr>
 			</table>
 		</form>

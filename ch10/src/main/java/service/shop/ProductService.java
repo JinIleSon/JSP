@@ -25,7 +25,7 @@ public enum ProductService {
 		return dao.selectAllProduct();
 	}
 	
-	public void update(ProductDTO dto) {
+	public void modify(ProductDTO dto) {
 		dao.updateProduct(dto);
 	}
 	

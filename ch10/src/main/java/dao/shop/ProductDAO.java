@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
@@ -131,11 +132,57 @@ public class ProductDAO{
 	
 	public void updateProduct(ProductDTO dto) {
 		
+		try {
+			Context ctx = (Context) new InitialContext().lookup("java:comp/env");
+			DataSource ds = (DataSource) ctx.lookup("jdbc/shop");
+			
+			Connection conn = ds.getConnection();
+			
+			String sql = "UPDATE PRODUCT SET PNO=?, PNAME=?, STOCK=?, PRICE=?, COMPANY=? WHERE PNO=?";
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, dto.getPno());
+			psmt.setString(2, dto.getPname());
+			psmt.setString(3, dto.getStock());
+			psmt.setString(4, dto.getPrice());
+			psmt.setString(5, dto.getCompany());
+			psmt.setString(6, dto.getPno());
+			
+			psmt.executeUpdate();
+
+			psmt.close();
+			conn.close();
+			ctx.close();
+			
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+		}
 		
 		
 	}
 	
 	public void deleteProduct(String pno) {
+		
+		try {
+			Context ctx = (Context) new InitialContext().lookup("java:comp/env");
+			DataSource ds = (DataSource) ctx.lookup("jdbc/shop");
+			
+			Connection conn = ds.getConnection();
+			
+			String sql = "DELETE FROM PRODUCT WHERE PNO=?";
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, pno);
+			
+			psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+			ctx.close();
+			
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		
 		
 	}
 }

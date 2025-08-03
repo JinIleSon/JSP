@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -12,6 +12,7 @@
 		
 		<a href="/ch10">처음으로</a>
 		<a href="/ch10/shop/customer/register.do">등록하기</a>
+
 		
 		<table border="1">
 			<tr>
