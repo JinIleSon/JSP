@@ -51,10 +51,8 @@ public class ModifyController extends HttpServlet{
 		dto.setStock(stock);
 		dto.setPrice(price);
 		dto.setCompany(company);
-		System.out.println(dto);
+		
 		service.modify(dto);
-		
-		
 		
 		resp.sendRedirect("/ch10/shop/product/list.do");
 		
