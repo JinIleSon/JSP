@@ -137,6 +137,9 @@ public class CourseDAO {
 			
 			
 			
+			conn.close();
+			ctx.close();
+			
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 		}
