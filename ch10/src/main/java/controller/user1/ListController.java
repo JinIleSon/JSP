@@ -28,8 +28,6 @@ public class ListController extends HttpServlet {
 		// request 공유
 		req.setAttribute("dtoList", dtoList);
 		
-		System.out.println(dtoList);
-		
 		// 포워드
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user1/list.jsp");
 		dispatcher.forward(req, resp);
