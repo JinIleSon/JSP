@@ -64,7 +64,7 @@ public class CourseDAO {
 			
 			Connection conn = ds.getConnection();
 			
-			String sql = "SELECT * FROM COLLEGE WHERE CS_ID=?";
+			String sql = "SELECT * FROM course WHERE CS_ID=?";
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			psmt.setString(1, cs_id);
 			
@@ -99,7 +99,7 @@ public class CourseDAO {
 			
 			Connection conn = ds.getConnection();
 			
-			String sql = "SELECT * FROM COLLEGE";
+			String sql = "SELECT * FROM course";
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			
 			ResultSet rs = psmt.executeQuery();
@@ -135,8 +135,16 @@ public class CourseDAO {
 			
 			Connection conn = ds.getConnection();
 			
+			PreparedStatement psmt = conn.prepareStatement("update course set cs_id=?, cs_name=?, cs_credit=?, cs_dept=? where cs_id=?");
+			psmt.setString(1, dto.getCs_id());
+			psmt.setString(2, dto.getCs_name());
+			psmt.setString(3, dto.getCs_credit());
+			psmt.setString(4, dto.getCs_dept());
+			psmt.setString(5, dto.getCs_id());
 			
+			psmt.executeUpdate();
 			
+			psmt.close();
 			conn.close();
 			ctx.close();
 			
@@ -147,5 +155,23 @@ public class CourseDAO {
 	
 	public void deleteCourse(String cs_id) {
 		
+		try {
+			
+			Context ctx = (Context) new InitialContext().lookup("java:comp/env");
+			DataSource ds = (DataSource) ctx.lookup("jdbc/college");
+			
+			Connection conn = ds.getConnection();
+			
+			PreparedStatement psmt = conn.prepareStatement("delete from course where cs_id=?");
+			psmt.setString(1, cs_id);
+			psmt.executeUpdate();
+			
+			psmt.close();
+			conn.close();
+			ctx.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }

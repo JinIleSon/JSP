@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -19,6 +19,7 @@
 				<td>학과</td>
 				<td>관리</td>
 			</tr>
+			<c:forEach var="dto" items="${ dtoList}">
 			<tr>
 				<td>${dto.cs_id}</td>
 				<td>${dto.cs_name}</td>
@@ -29,6 +30,7 @@
 					<a href="/ch10/college/course/delete.do?cs_id=${dto.cs_id}">삭제</a>
 				</td>
 			</tr>
+			</c:forEach>
 		</table>
 	</body>
 </html>
