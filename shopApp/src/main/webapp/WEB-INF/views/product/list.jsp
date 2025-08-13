@@ -21,7 +21,7 @@
 		<c:if test="${not empty sessUser}">
 			<p>
 				${sessUser.name}(${sessUser.custid})님 반갑습니다.
-				<a href="#">로그아웃</a>
+				<a href="/shopApp/customer/logout.do">로그아웃</a>
 			</p>
 		</c:if>
 		<table border="1">
@@ -34,20 +34,24 @@
 				<th>수량</th>
 				<th>주문</th>
 			</tr>
-			
-			<tr>  <!--  손보기 -->
-				<td>100</td>
-				<td>초코파이</td>
-				<td>121</td>
-				<td>2500</td>
-				<td>오리온</td>
-				<td>
-					<input type="number" name="count" style="width: 40px"/>
-				</td>
-				<td>
-					<a href="#">주문하기</a>
-				</td>
-			</tr>
+			<c:forEach var="product" items="${dtoList}">
+				<form action="/shopApp/order/register.do">
+					<tr>
+						<td>${product.prodNo}</td>
+						<td>${product.prodName}</td>
+						<td>${product.stock}</td>
+						<td>${product.price}</td>
+						<td>${product.company}</td>
+						<td>
+							<input type="hidden" name="prodNo" value="${product.prodNo}"/>
+							<input type="number" name="prodCount" style="width: 40px"/>
+						</td>
+						<td>
+							<input type="submit" value="주문하기"/>
+						</td>
+					</tr>
+				</form>
+			</c:forEach>
 		</table>
 	</body>
 </html>
