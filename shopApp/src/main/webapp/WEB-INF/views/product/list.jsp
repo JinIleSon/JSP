@@ -11,15 +11,19 @@
 		<a href="/shopApp">처음으로</a>
 		<a href="/shopApp/product/register.do">등록하기</a>
 		
-		<p>
-			<input type="text" name="custid"/>
-			<a href="#">로그인</a>
-		</p>
-		<p>
-			OOO님 반갑습니다.
-			<a href="#">로그아웃</a>
-		</p>
+		<c:if test="${empty sessUser}">
+			<form action="/shopApp/customer/login.do" method="post">
+				<input type="text" name="custid" style="width: 100px"/>
+				<input type="submit" value="로그인"/>
+			</form>
+		</c:if>
 		
+		<c:if test="${not empty sessUser}">
+			<p>
+				${sessUser.name}(${sessUser.custid})님 반갑습니다.
+				<a href="#">로그아웃</a>
+			</p>
+		</c:if>
 		<table border="1">
 			<tr>
 				<th>상품번호</th>
