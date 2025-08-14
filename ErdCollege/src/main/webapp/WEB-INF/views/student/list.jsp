@@ -22,19 +22,19 @@
 				<th>가입일</th>
 				<th>관리</th>
 			</tr>
-			
-			<tr>  <!--  손보기 -->
-				<td>a101</td>
-				<td>홍길동</td>
-				<td>010-1111-2222</td>
-				<td>부산</td>
-				<td>2000-12-12</td>
-				<td>
-					<a href="/shopApp/customer/modify.do?cid=${customer.cid}">수정</a>
-					<a href="/shopApp/customer/delete.do?cid=${customer.cid}">삭제</a>
-				</td>
-			</tr>
-		
+			<c:forEach var="dto" items="${dtoList}">	
+				<tr>  <!--  손보기 -->
+					<td>${dto.stdNo}</td>
+					<td>${dto.stdName}</td>
+					<td>${dto.stdHp}</td>
+					<td>${dto.stdYear}</td>
+					<td>${dto.stdAddress}</td>
+					<td>
+						<a href="/ErdCollege/student/modify.do?cid=${dto.stdNo}">수정</a>
+						<a href="/ErdCollege/student/delete.do?cid=${dto.stdNo}">삭제</a>
+					</td>
+				</tr>
+			</c:forEach>
 		</table>		
 	</body>
 </html>

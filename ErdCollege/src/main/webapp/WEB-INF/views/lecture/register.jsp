@@ -11,27 +11,27 @@
 		<a href="/ErdCollege">처음으로</a>
 		<a href="/ErdCollege/lecture/list.do">목록이동</a>
 		
-		<form action="/shopApp/customer/register.do" method="post">
+		<form action="/ErdCollege/lecture/register.do" method="post">
 			<table border="1">
 				<tr>
-					<td>아이디</td>
-					<td><input type="text" name="custid" placeholder="아이디 입력"/></td>
+					<td>강좌번호</td>
+					<td><input type="number" name="lecNo" placeholder="강좌번호 입력"/></td>
 				</tr>
 				<tr>
-					<td>이름</td>
-					<td><input type="text" name="name" placeholder="이름 입력"/></td>
+					<td>강좌명</td>
+					<td><input type="text" name="lecName" placeholder="강좌명 입력"/></td>
 				</tr>
 				<tr>
-					<td>휴대폰</td>
-					<td><input type="text" name="hp" placeholder="휴대폰 입력(- 포함)"/></td>
+					<td>학점</td>
+					<td><input type="number" name="lecCredit" placeholder="학점 입력"/></td>
 				</tr>
 				<tr>
-					<td>주소</td>
-					<td><input type="text" name="addr" placeholder="주소 입력"/></td>
+					<td>시간</td>
+					<td><input type="number" name="lecTime" placeholder="시간 입력"/></td>
 				</tr>
 				<tr>
-					<td>등록일</td>
-					<td><input type="date" name="rdate"/></td>
+					<td>강의실</td>
+					<td><input type="text" name="lecClass" placeholder="강의실 입력"/></td>
 				</tr>
 				<tr>					
 					<td colspan="2" align="right">

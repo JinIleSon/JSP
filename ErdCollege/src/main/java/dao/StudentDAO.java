@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dto.StudentDTO;
@@ -13,11 +14,60 @@ public class StudentDAO extends DBHelper{
 	}
 	private StudentDAO() {}
 	
-	public StudentDAO select(String stdNo) {
+	public StudentDTO select(String stdNo) {
 		return null;
 	}
+	public StudentDTO select(String stdNo, String stdName) {
+		
+		StudentDTO dto = null;
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement("select * from student where stdNo=? and stdName=?");
+			psmt.setString(1, stdNo);
+			psmt.setString(2, stdName);
+			
+			rs = psmt.executeQuery();
+			
+			if (rs.next()) {
+				dto = new StudentDTO();
+				dto.setStdNo(rs.getString(1));
+				dto.setStdName(rs.getString(2));
+				dto.setStdHp(rs.getString(3));
+				dto.setStdYear(rs.getInt(4));
+				dto.setStdAddress(rs.getString(5));
+			}
+			closeAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
 	public List<StudentDTO> selectAll() {
-		return null;
+		List<StudentDTO> dtoList = new ArrayList<StudentDTO>();
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement("select * from student");
+			rs = psmt.executeQuery();
+			
+			while (rs.next()) {
+				StudentDTO dto = new StudentDTO();
+				dto.setStdNo(rs.getString(1));
+				dto.setStdName(rs.getString(2));
+				dto.setStdHp(rs.getString(3));
+				dto.setStdYear(rs.getInt(4));
+				dto.setStdAddress(rs.getString(5));
+				
+				dtoList.add(dto);
+			}
+			closeAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dtoList;
 	}
 	public void insert(StudentDTO dto) {}
 	public void update(StudentDTO dto) {}

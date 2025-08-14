@@ -1,19 +1,17 @@
 package controller.student;
 
 import java.io.IOException;
-import java.util.List;
 
-import dto.StudentDTO;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import service.StudentService;
 
-@WebServlet("/student/list.do")
-public class ListController extends HttpServlet{
+@WebServlet("/student/logout.do")
+public class LogoutController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 
@@ -22,12 +20,12 @@ public class ListController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		List<StudentDTO> dtoList = service.findAll();
+		HttpSession session = req.getSession();
 		
-		req.setAttribute("dtoList", dtoList);
+		session.removeAttribute("sessStudent");
+		session.invalidate();
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/student/list.jsp");
-		dispatcher.forward(req, resp);
+		resp.sendRedirect("/ErdCollege/?logout=success");
 	}
 	
 	@Override

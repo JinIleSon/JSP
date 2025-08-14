@@ -10,8 +10,11 @@ public enum StudentService {
 	
 	private StudentDAO dao = StudentDAO.getInstance();
 	
-	public StudentDAO findById(String stdNo) {
+	public StudentDTO findById(String stdNo) {
 		return dao.select(stdNo);
+	}
+	public StudentDTO findByIdAndName(String stdNo, String stdName) {
+		return dao.select(stdNo, stdName);
 	}
 	public List<StudentDTO> findAll() {
 		return dao.selectAll();
