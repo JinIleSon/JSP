@@ -30,8 +30,7 @@
 				<td>${dto.regTotalScore}</td>
 				<td>${dto.regGrade}</td>
 				<td>
-					<a href="/shopApp/customer/modify.do?cid=${customer.cid}">수정</a>
-					<a href="/shopApp/customer/delete.do?cid=${customer.cid}">삭제</a>
+					<a href="/ErdCollege/register/delete.do?regStdNo=${dto.regStdNo}&regLecNo=${dto.regLecNo}">삭제</a>
 				</td>
 			</tr>
 			</c:forEach>		

@@ -62,5 +62,19 @@ public class RegisterDAO extends DBHelper{
 		}
 	}
 	public void update(RegisterDTO dto) {}
-	public void delete(String regStdNo, int regLecNo) {}
+	public void delete(String regStdNo, int regLecNo) {
+		
+		try {
+			conn = getConnection();
+			
+			psmt = conn.prepareStatement("delete from register where regstdno=? and reglecno=?");
+			psmt.setString(1, regStdNo);
+			psmt.setInt(2, regLecNo);
+			psmt.executeUpdate();
+			
+			closeAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
