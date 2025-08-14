@@ -7,6 +7,16 @@ public class CustomerDTO {
 	private int c_dist;
 	private String c_phone;
 	private String c_addr;
+	
+	// 추가필드
+	private String c_a_no;
+	
+	public String getC_a_no() {
+		return c_a_no;
+	}
+	public void setC_a_no(String c_a_no) {
+		this.c_a_no = c_a_no;
+	}
 	public String getC_no() {
 		return c_no;
 	}
@@ -40,6 +50,6 @@ public class CustomerDTO {
 	@Override
 	public String toString() {
 		return "CustomerDTO [c_no=" + c_no + ", c_name=" + c_name + ", c_dist=" + c_dist + ", c_phone=" + c_phone
-				+ ", c_addr=" + c_addr + "]";
+				+ ", c_addr=" + c_addr + ", c_a_no=" + c_a_no + "]";
 	}
 }

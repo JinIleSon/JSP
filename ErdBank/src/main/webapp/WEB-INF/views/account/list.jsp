@@ -24,6 +24,7 @@
 				<th>계좌개설일</th>
 				<th>작업</th>
 			</tr>
+			
 			<c:forEach var="acc" items="${accounts}">
 				<tr>  <!--  손보기 -->
 					<td>${acc.a_no}</td>
@@ -32,12 +33,14 @@
 					<td>${acc.a_c_name}(${acc.a_c_no})</td>
 					<td>${acc.a_balance}</td>
 					<td>${acc.a_open_date}</td>
+					<c:if test="${sessCustomer.c_no eq acc.a_c_no}">
 					<td>
-						<a href="#">입금</a>
-						<a href="#">출금</a>
-						<a href="#">조회</a>
-						<a href="#">이체</a>
+						<a href="/ErdBank/account/deposit.do">입금</a>
+						<a href="/ErdBank/account/withdraw.do">출금</a>
+						<a href="/ErdBank/account/show.do">조회</a>
+						<a href="/ErdBank/account/transfer.do">이체</a>
 					</td>
+					</c:if>
 				</tr>
 			</c:forEach>
 		</table>		
