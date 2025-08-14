@@ -13,8 +13,8 @@ public enum RegisterService {
 	public RegisterDTO findById(String regStdNo, int regLecNo) {
 		return dao.select(regStdNo, regLecNo);
 	}
-	public List<RegisterDTO> findAll() {
-		return dao.selectAll();
+	public List<RegisterDTO> findAll(String regStdNo) {
+		return dao.selectAll(regStdNo);
 	}
 	public void regist(RegisterDTO dto) {
 		dao.insert(dto);

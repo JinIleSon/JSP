@@ -31,8 +31,7 @@
 					<td>${dto.lecTime}</td>
 					<td>${dto.lecClass}</td>
 					<td>
-						<a href="/shopApp/customer/modify.do?cid=${customer.cid}">수정</a>
-						<a href="/shopApp/customer/delete.do?cid=${customer.cid}">삭제</a>
+						<a href="/ErdCollege/register/request.do?lecNo=${dto.lecNo}">수강신청</a>
 					</td>
 				</tr>
 			</c:forEach>

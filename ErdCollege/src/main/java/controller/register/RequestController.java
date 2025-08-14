@@ -1,7 +1,6 @@
 package controller.register;
 
 import java.io.IOException;
-import java.util.List;
 
 import dto.RegisterDTO;
 import dto.StudentDTO;
@@ -14,8 +13,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import service.RegisterService;
 
-@WebServlet("/register/list.do")
-public class ListController extends HttpServlet{
+@WebServlet("/register/request.do")
+public class RequestController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,15 +23,25 @@ public class ListController extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+		// 전송 데이터 수신
+		String lecNo = req.getParameter("lecNo");
+		
+		// 현재 세션 구하기
 		HttpSession session = req.getSession();
+		
+		// 현재 로그인 사용자 구하기
 		StudentDTO sessStudent = (StudentDTO) session.getAttribute("sessStudent");
 		
-		List<RegisterDTO> dtoList = service.findAll(sessStudent.getStdNo());
+		// 서비스 요청을 위한 dto 생성
+		RegisterDTO dto = new RegisterDTO();
+		dto.setRegStdNo(sessStudent.getStdNo());
+		dto.setRegLecNo(lecNo);
 		
-		req.setAttribute("dtoList", dtoList);
+		// 서비스 요청
+		service.regist(dto); 
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/register/list.jsp");
-		dispatcher.forward(req, resp);
+		// 수강 목록 이동
+		resp.sendRedirect("/ErdCollege/lecture/list.do");
 	}
 	
 	@Override

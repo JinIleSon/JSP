@@ -18,8 +18,8 @@
 				<th>아이디</th>
 				<th>이름</th>
 				<th>휴대폰</th>
+				<th>학년</th>
 				<th>주소</th>
-				<th>가입일</th>
 				<th>관리</th>
 			</tr>
 			<c:forEach var="dto" items="${dtoList}">	
@@ -30,8 +30,8 @@
 					<td>${dto.stdYear}</td>
 					<td>${dto.stdAddress}</td>
 					<td>
-						<a href="/ErdCollege/student/modify.do?cid=${dto.stdNo}">수정</a>
-						<a href="/ErdCollege/student/delete.do?cid=${dto.stdNo}">삭제</a>
+						<a href="/ErdCollege/student/modify.do?stdNo=${dto.stdNo}">수정</a>
+						<a href="/ErdCollege/student/delete.do?stdNo=${dto.stdNo}">삭제</a>
 					</td>
 				</tr>
 			</c:forEach>

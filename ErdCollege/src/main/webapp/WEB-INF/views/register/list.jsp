@@ -13,26 +13,28 @@
 		<a href="/ErdCollege">처음으로</a>
 		<table border="1">
 			<tr>
-				<th>아이디</th>
-				<th>이름</th>
-				<th>휴대폰</th>
-				<th>주소</th>
-				<th>가입일</th>
+				<th>학번</th>
+				<th>수강번호</th>
+				<th>중간고사 점수</th>
+				<th>기말고사 점수</th>
+				<th>총점</th>
+				<th>학점</th>
 				<th>관리</th>
 			</tr>
-			
+			<c:forEach var="dto" items="${dtoList}">
 			<tr>  <!--  손보기 -->
-				<td>a101</td>
-				<td>홍길동</td>
-				<td>010-1111-2222</td>
-				<td>부산</td>
-				<td>2000-12-12</td>
+				<td>${dto.regStdNo}</td>
+				<td>${dto.regLecNo}</td>
+				<td>${dto.regMidScore}</td>
+				<td>${dto.regFinalScore}</td>
+				<td>${dto.regTotalScore}</td>
+				<td>${dto.regGrade}</td>
 				<td>
 					<a href="/shopApp/customer/modify.do?cid=${customer.cid}">수정</a>
 					<a href="/shopApp/customer/delete.do?cid=${customer.cid}">삭제</a>
 				</td>
 			</tr>
-		
+			</c:forEach>		
 		</table>		
 	</body>
 </html>

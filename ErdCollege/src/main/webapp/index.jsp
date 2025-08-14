@@ -42,7 +42,7 @@
 				<a href="/ErdCollege/student/logout.do">로그아웃</a>
 			</p>
 			<a href="/ErdCollege/student/list.do">학생목록</a>
-			<a href="/ErdCollege/lecture/list.do">강의목록</a>
+			<a href="/ErdCollege/lecture/list.do">강의목록(수강신청)</a>
 			<a href="/ErdCollege/register/list.do">수강목록</a>
 		</c:if>
 	</body>

@@ -15,7 +15,31 @@ public class StudentDAO extends DBHelper{
 	private StudentDAO() {}
 	
 	public StudentDTO select(String stdNo) {
-		return null;
+		
+		StudentDTO dto = null;
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement("select * from student where stdNo = ?");
+			psmt.setString(1, stdNo);
+			
+			rs = psmt.executeQuery();
+			
+			if (rs.next()) {
+				dto = new StudentDTO();
+				dto.setStdNo(rs.getString(1));
+				dto.setStdName(rs.getString(2));
+				dto.setStdHp(rs.getString(3));
+				dto.setStdYear(rs.getInt(4));
+				dto.setStdAddress(rs.getString(5));
+			
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return dto;
 	}
 	public StudentDTO select(String stdNo, String stdName) {
 		
@@ -69,7 +93,64 @@ public class StudentDAO extends DBHelper{
 		
 		return dtoList;
 	}
-	public void insert(StudentDTO dto) {}
-	public void update(StudentDTO dto) {}
-	public void delete(String stdNo) {}
+	public void insert(StudentDTO dto) {
+		
+		try {
+			conn = getConnection();
+			
+			psmt = conn.prepareStatement("insert into student values (?,?,?,?,?)");
+			psmt.setString(1, dto.getStdNo());
+			psmt.setString(2, dto.getStdName());
+			psmt.setString(3, dto.getStdHp());
+			psmt.setInt(4, dto.getStdYear());
+			psmt.setString(5, dto.getStdAddress());
+			
+			psmt.executeUpdate();
+			
+			closeAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void update(StudentDTO dto) {
+		
+		try {
+			
+			conn = getConnection();
+			psmt = conn.prepareStatement("update student set stdno=?, stdname=?, stdhp=?, stdyear=?, stdaddress=? where stdno=?");
+			psmt.setString(1, dto.getStdNo());
+			psmt.setString(2, dto.getStdName());
+			psmt.setString(3, dto.getStdHp());
+			psmt.setInt(4, dto.getStdYear());
+			psmt.setString(5, dto.getStdAddress());
+			psmt.setString(6, dto.getStdNo());
+			
+			psmt.executeUpdate();
+			
+			closeAll();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void delete(String stdNo) {
+		
+		try {
+			conn = getConnection();
+			
+			psmt = conn.prepareStatement("delete from register where regstdno=?");
+			psmt.setString(1, stdNo);
+			psmt.executeUpdate();
+			
+			psmt = conn.prepareStatement("delete from student where stdNo=?");
+			psmt.setString(1, stdNo);
+			psmt.executeUpdate();
+			
+			closeAll();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
