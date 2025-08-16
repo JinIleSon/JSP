@@ -1,0 +1,36 @@
+package controller.student;
+
+import java.io.IOException;
+
+import dto.StudentDTO;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import service.StudentService;
+
+@WebServlet("/student/logout.do")
+public class LogoutController extends HttpServlet{
+
+	private static final long serialVersionUID = 1L;
+
+	private StudentService service = StudentService.INSTANCE;
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		HttpSession session = req.getSession();
+		StudentDTO sessUser = (StudentDTO) session.getAttribute("sessUser");
+		
+		session.removeAttribute("sessUser");
+		session.invalidate();
+		
+		resp.sendRedirect("/ErdCollege_copy/");
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	}
+}
