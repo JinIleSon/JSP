@@ -1,0 +1,58 @@
+package dto;
+
+public class productDTO{
+	private int prodNo;
+	private String prodName;
+	private int stock;
+	private int price;
+	private String company;
+	public int getProdNo() {
+		return prodNo;
+	}
+	public void setProdNo(int prodNo) {
+		this.prodNo = prodNo;
+	}
+	public void setProdNo(String prodNo) {
+		if (prodNo != null)
+			this.prodNo = Integer.parseInt(prodNo);
+	}
+	public String getProdName() {
+		return prodName;
+	}
+	public void setProdName(String prodName) {
+		this.prodName = prodName;
+	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	public void setStock(String stock) {
+		if (stock != null)
+			this.stock = Integer.parseInt(stock);
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public void setPrice(String price) {
+		if (price != null)
+			this.price = Integer.parseInt(price);
+	}
+	public String getCompany() {
+		return company;
+	}
+	public void setCompany(String company) {
+		this.company = company;
+	}
+	@Override
+	public String toString() {
+		return "productDTO [prodNo=" + prodNo + ", prodName=" + prodName + ", stock=" + stock + ", price=" + price
+				+ ", company=" + company + "]";
+	}
+	
+	
+}
