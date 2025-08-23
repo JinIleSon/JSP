@@ -153,5 +153,11 @@ public class TransactionDAO extends DBHelper{
 			e.printStackTrace();
 		}
 	}
-	public void deleteTransaction(String t_no) {}
+	public void deleteTransaction(String t_no) {
+		try {
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
