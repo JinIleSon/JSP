@@ -155,6 +155,7 @@ public class TransactionDAO extends DBHelper{
 	}
 	public void deleteTransaction(String t_no) {
 		try {
+			conn = getConnection();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
