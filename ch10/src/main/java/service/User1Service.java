@@ -11,8 +11,8 @@ public enum User1Service {
 	
 	private User1DAO dao = User1DAO.getInstance();
 	
-	public void register(User1DTO dto) {
-		dao.insertUser1(dto);
+	public int register(User1DTO dto) {
+		return dao.insertUser1(dto);
 	}
 	public User1DTO findById(String uid) {
 		return dao.selectUser1(uid);

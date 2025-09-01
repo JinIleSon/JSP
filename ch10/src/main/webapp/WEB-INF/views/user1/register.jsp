@@ -5,6 +5,39 @@
 		<meta charset="UTF-8">
 		<title>user1::register</title>
 	</head>
+	<script>
+		document.addEventListener('DOMContentLoaded', function(){
+			const form = document.formUser1;
+			
+			form.addEventListener('submit', function(e){
+				e.preventDefault();
+				
+				// JSON 생성
+				const jsonData = {
+					"user_id" : this.user_id.value,
+					"name" : this.name.value,
+					"hp" : this.hp.value,
+					"age" : this.age.value,
+				};
+				
+				console.log(jsonData);
+				
+				// 서버전송
+				fetch('/ch10/js/user1/register.do', {
+					method: 'POST',
+					headers: {"Content-Type": "application/json"}, // 반드시 설정
+					body: JSON.stringify(jsonData)
+				})
+					.then(res => res.json())
+					.then(data => {
+						console.log(data);
+					})
+					.catch(err => {
+						console.log(err);
+					});
+			})
+		})
+	</script>
 	<body>
 		<h3>User1 등록</h3>
 		

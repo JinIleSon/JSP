@@ -18,8 +18,9 @@ public class User1DAO extends DBHelper{
 	private final String DBCP = "jdbc/studydb";
 	
 	// 기본 CRUD 메서드
-	public void insertUser1(User1DTO dto) {
+	public int insertUser1(User1DTO dto) {
 		
+		int rowCount = 0;
 		try {
 			conn = getConnection(DBCP);
 			
@@ -30,12 +31,14 @@ public class User1DAO extends DBHelper{
 			psmt.setString(3, dto.getHp());
 			psmt.setInt(4, dto.getAge());
 			
-			psmt.executeUpdate();
+			// insert 성공하면 1, 실패하면 0
+			rowCount = psmt.executeUpdate();
 			closeAll();
 			
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		return rowCount;
 		
 	}
 	public User1DTO selectUser1(String uid) {
