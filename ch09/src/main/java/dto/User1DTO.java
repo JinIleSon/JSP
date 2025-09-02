@@ -39,13 +39,18 @@ public class User1DTO {
 	}
 	
 	public void setAge(String age) {
-		if(age != null) {
-			this.age = Integer.parseInt(age);
-		}
+		
+		if(age != null) {			
+			this.age = Integer.parseInt(age);						
+		}		
 	}
+	
 	
 	@Override
 	public String toString() {
 		return "User1DTO [user_id=" + user_id + ", name=" + name + ", hp=" + hp + ", age=" + age + "]";
 	}
+	
+	
+
 }

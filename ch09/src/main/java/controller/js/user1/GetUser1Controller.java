@@ -1,10 +1,12 @@
-package controller.user1;
+package controller.js.user1;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 import dto.User1DTO;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,31 +14,28 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import service.User1Service;
 
-@WebServlet("/user1/delete.do")
-public class DeleteController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-	
-	
-	private User1Service service = User1Service.getInstance();
+@WebServlet("/js/user1/getUser1.do")
+public class GetUser1Controller extends HttpServlet{
 
+	private static final long serialVersionUID = 1L;
+	private User1Service service = User1Service.getInstance();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		String uid = req.getParameter("uid");
 		
-		// 전송 데이터 수신
-		String user_id = req.getParameter("user_id");
+		// 수정 데이터 요청
+		User1DTO user1DTO = service.findById(uid);
 		
-		// 서비스 요청
-		service.delete(user_id);
+		// JSON 데이터 변환
+		Gson gson = new Gson();
+		String strJson = gson.toJson(user1DTO);
 		
-		// 이동
-		resp.sendRedirect("/ch09/user1/list.do");
+		// JSON 출력(클라이언트 전송)
+		resp.setContentType("application/json; charset=UTF-8");
 		
+		PrintWriter out = resp.getWriter();
+		out.print(strJson);		
 	}
-	
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
-	}
-	
-	
 }

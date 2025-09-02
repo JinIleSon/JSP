@@ -14,9 +14,9 @@ import service.User1Service;
 @WebServlet("/user1/modify.do")
 public class ModifyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private User1Service service = User1Service.getInstance();
 	
+	private User1Service service = User1Service.getInstance();
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -24,12 +24,12 @@ public class ModifyController extends HttpServlet {
 		String user_id = req.getParameter("user_id");
 		
 		// 수정 데이터 조회
-		User1DTO user1DTO =  service.findById(user_id);
+		User1DTO user1DTO = service.findById(user_id);
 		
 		// request 객체로 조회 데이터 공유
 		req.setAttribute("user1DTO", user1DTO);
 		
-		
+		// 포워드
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user1/modify.jsp");
 		dispatcher.forward(req, resp);		
 	}
@@ -54,9 +54,6 @@ public class ModifyController extends HttpServlet {
 		service.modify(dto);
 		
 		// 이동
-		resp.sendRedirect("/ch09/user1/list.do");
-		
-	}
-	
-	
+		resp.sendRedirect("/ch09/user1/list.do");		
+	}	
 }

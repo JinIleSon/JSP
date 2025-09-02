@@ -20,8 +20,9 @@ public class HelloController extends HttpServlet {
 		/*
 		 * View forward
 		 *  - jsp 파일에 직접 요청을 못하게 하기 위해 WEB-INF 폴더 하위에 view 페이지 작성
-		 *  - JSP 페이지로 Controller의 request와 response 객체 공유
+		 *  - JSP 페이지에서 Controller의 request와 response 객체를 공유
 		 */
+		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/hello.jsp");
 		dispatcher.forward(req, resp);
 	}
@@ -29,4 +30,15 @@ public class HelloController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	}
+	
 }
+
+
+
+
+
+
+
+
+
+

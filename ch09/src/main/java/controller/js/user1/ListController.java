@@ -1,42 +1,35 @@
-package controller;
+package controller.js.user1;
 
 import java.io.IOException;
+import java.util.List;
 
+import dto.User1DTO;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import service.User1Service;
 
-@WebServlet("/welcome.do")
-public class WelcomeController extends HttpServlet {
-
+@WebServlet("/js/user1/list.do")
+public class ListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private User1Service service = User1Service.getInstance();
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		/*
-		 * View forward
-		 *  - jsp 파일에 직접 요청을 못하게 하기 위해 WEB-INF 폴더 하위에 view 페이지 작성
-		 *  - JSP 페이지로 Controller의 request와 response 객체 공유
-		 */		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/welcome.jsp");
+		
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/js/user1/list.jsp");
 		dispatcher.forward(req, resp);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	
+	
 	}
 	
+	
 }
-
-
-
-
-
-
-
-
-
-
