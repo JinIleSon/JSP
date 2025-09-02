@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jboard.service.UserService;
 
 @WebServlet("/user/check.do")
@@ -27,6 +28,17 @@ public class CheckUserController extends HttpServlet {
 		
 		int count = userService.getUserCount(col, value);
 		
+		// 사용 가능한 이메일이면 인증코드 전송 서비스 요청
+		if(col.equals("email") && count == 0) {
+			
+			// 생성된 인증코드 이메일 전송 후 반환
+			String code = userService.sendEmailCode(value);
+			
+			// 세션 저장
+			HttpSession session = req.getSession();
+			session.setAttribute("sessAuthCode", code);
+		}
+		
 		// JSON 생성
 		JsonObject json = new JsonObject();
 		json.addProperty("count", count);		
@@ -39,6 +51,30 @@ public class CheckUserController extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String code = req.getParameter("code");
+		//System.out.println(code);
+		
+		// 인증코드 일치 여부 확인
+		HttpSession session = req.getSession();
+		String sessAuthCode = (String) session.getAttribute("sessAuthCode");
+		
+		boolean isMatched = sessAuthCode.equals(code);
+		
+		if(code.equals(sessAuthCode)) {
+			isMatched = true;
+		}else {
+			isMatched = false;
+		}
+		
+		// JSON 생성
+		JsonObject json = new JsonObject();
+		json.addProperty("result", isMatched);
+		
+		// JSON 출력
+		resp.setContentType("application/json; charset=UTF-8");
+		PrintWriter writer = resp.getWriter();
+		writer.print(json);
 	}
 
 }

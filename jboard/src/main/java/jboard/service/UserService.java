@@ -1,6 +1,19 @@
 package jboard.service;
 
 import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.ThreadLocalRandom;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import javax.sound.midi.Receiver;
+
+import org.apache.catalina.ha.backend.Sender;
 
 import jboard.dao.UserDAO;
 import jboard.dto.UserDTO;
@@ -9,7 +22,53 @@ public enum UserService {
 	
 	INSTANCE;
 	
+	private final String SENDER = "thswlsdlf0000@gmail.com";
 	private UserDAO dao = UserDAO.getInstance();
+	
+	public String sendEmailCode(String email) {
+		// Gmail SMTP 서버 설정
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.port", "465");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.ssl.enable", "true");
+		props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		
+		// 6자리 인증코드 생성
+		int code = ThreadLocalRandom.current().nextInt(100000, 1000000); // 10만~100만
+		
+		
+		String title = "jboard 회원가입 이메일 인증코드";
+		String content = "인증코드는 " + code + "입니다.";
+		
+		// Gmail SMTP 세션 생성
+		Session gmailSession = Session.getInstance(props, new Authenticator(){
+			
+			@Override
+			protected javax.mail.PasswordAuthentication getPasswordAuthentication(){
+				String secret = "huowluayeufihmwb";
+				return new PasswordAuthentication(SENDER, secret);
+			}
+		}); 
+		
+		// 메일 객체 생성
+		Message message = new MimeMessage(gmailSession);
+		
+		try {
+			message.setFrom(new InternetAddress(SENDER, "보내는사람", "UTF-8"));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			message.setSubject(title);
+			message.setContent(content, "text/html;charset=UTF-8"); // 내용이 HTML문서
+			
+			// 메일 발송
+			Transport.send(message);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return String.valueOf(code);
+	}
 	
 	public void register(UserDTO dto) {
 		dao.insert(dto);
