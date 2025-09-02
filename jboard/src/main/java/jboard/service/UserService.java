@@ -6,15 +6,18 @@ import jboard.dao.UserDAO;
 import jboard.dto.UserDTO;
 
 public enum UserService {
-
+	
 	INSTANCE;
 	
 	private UserDAO dao = UserDAO.getInstance();
 	
 	public void register(UserDTO dto) {
 		dao.insert(dto);
+	}	
+	public int getUserCount(String col, String value) {
+		return dao.selectCount(col, value);
 	}
-	public UserDTO findById(int usid) {
+	public UserDTO findById(String usid) {
 		return dao.select(usid);
 	}
 	public List<UserDTO> findAll() {
@@ -22,9 +25,8 @@ public enum UserService {
 	}
 	public void modify(UserDTO dto) {
 		dao.update(dto);
-	}
-	public void remove(int usid) {
+	}	
+	public void remove(String usid) {
 		dao.delete(usid);
 	}
-	
 }

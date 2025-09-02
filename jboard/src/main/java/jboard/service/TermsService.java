@@ -26,5 +26,4 @@ public enum TermsService {
 	public void remove(int no) {
 		dao.delete(no);
 	}
-	
 }
