@@ -20,5 +20,9 @@ public class Sql {
 											+ "VALUES (?,STANDARD_HASH(?, 'SHA256'),?,?,?,?,?,?,?,?,SYSDATE)";
 	
 	// article
-	public static final String INSERT_ARTICLE = "INSERT INTO TB_ARTICLE (title, content, writer, reg_ip, wdate) VALUES (?,?,?,?,sysdate)";
+	public static final String SELECT_MAX_ANO = "SELECT MAX(ano) FROM TB_ARTICLE";
+	public static final String INSERT_ARTICLE = "INSERT INTO TB_ARTICLE (title, content, file_cnt, writer, reg_ip, wdate) VALUES (?,?,?,?,?,sysdate)";
+	
+	// file
+	public static final String INSERT_FILE = "INSERT INTO TB_FILE (ANO, ONAME, SNAME, RDATE) VALUES (?, ?, ?, SYSDATE)";
 }

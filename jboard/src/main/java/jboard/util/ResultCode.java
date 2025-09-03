@@ -5,6 +5,7 @@ public enum ResultCode {
 	REGISTER_SUCCESS(100, "회원가입이 완료되었습니다."),
 	LOGIN_FAIL(101, "로그인에 실패했습니다. 아이디/비번을 다시 확인하십시오."),
 	LOGOUT_SUCCESS(102, "로그아웃했습니다. 안녕히 가십시오."),
+	LOGIN_REQUIRE(103, "로그인을 하셔야 합니다."),
 	WRITER_SUCCESS(200, "글작성 완료했습니다.");
 	
 	private final int code;

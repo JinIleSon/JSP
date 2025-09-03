@@ -5,17 +5,17 @@
         <nav>
             <h1>글쓰기</h1>
         </nav>
-        <form action="/jboard/article/write.do" method="post">
+        <form action="/jboard/article/write.do" method="post" enctype="multipart/form-data">
         	<input type="hidden" name="writer" readonly value="${sessUser.usid}">
             <table border="0">
                 <tr>
                     <th>제목</th>
-                    <td><input type="text" name="title" placeholder="제목을 입력하세요."/></td>
+                    <td><input type="text" name="title" required="required" placeholder="제목을 입력하세요."/></td>
                 </tr>
                 <tr>
                     <th>내용</th>
                     <td>
-                        <textarea name="content"></textarea>
+                        <textarea name="content" required="required"></textarea>
                     </td>
                 </tr>
                 <tr>
