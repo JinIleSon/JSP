@@ -1,6 +1,7 @@
 package jboard.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -54,11 +55,61 @@ public class ArticleDAO extends DBHelper{
 		}
 		return ano;
 	}
+	
+public int selectCountTotal() {
+		
+		int total = 0;
+		
+		try {
+			conn = getConnection();			
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery(Sql.SELECT_COUNT_TOTAL);
+			
+			if(rs.next()) {
+				total = rs.getInt(1);
+			}			
+			closeAll();
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return total;
+	}	
 	public ArticleDTO select(int ano) {
 		return null;
 	}
-	public List<ArticleDTO> selectAll() {
-		return null;
+	public List<ArticleDTO> selectAll(int start) {
+		
+		List<ArticleDTO> dtoList = new ArrayList<ArticleDTO>();
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(Sql.SELECT_ARTICLE_ALL);
+			psmt.setInt(1, start);
+			
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				ArticleDTO dto = new ArticleDTO();
+				dto.setAno(rs.getInt(1));
+				dto.setCate(rs.getString(2));
+				dto.setTitle(rs.getString(3));
+				dto.setContent(rs.getString(4));
+				dto.setComment_cnt(rs.getInt(5));
+				dto.setFile_cnt(rs.getInt(6));
+				dto.setHit_cnt(rs.getInt(7));
+				dto.setWriter(rs.getString(8));
+				dto.setReg_ip(rs.getString(9));
+				dto.setWdate(rs.getString(10));
+				dto.setNick(rs.getString(11));
+				
+				
+				dtoList.add(dto);
+			}
+			closeAll();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		
+		return dtoList;
 	}
 	public void update(ArticleDTO dto) {}
 	public void delete(int ano) {}

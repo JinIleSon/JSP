@@ -12,6 +12,17 @@ public class ArticleDTO {
 	private String writer;
 	private String reg_ip;
 	private String wdate;
+	
+	// 추가 필드
+	private String nick;
+	
+	public String getNick() {
+		return nick;
+	}
+	public void setNick(String nick) {
+		this.nick = nick;
+	}
+	
 	public int getAno() {
 		return ano;
 	}
@@ -67,7 +78,7 @@ public class ArticleDTO {
 		this.reg_ip = reg_ip;
 	}
 	public String getWdate() {
-		return wdate;
+		return wdate.substring(2, 16);
 	}
 	public void setWdate(String wdate) {
 		this.wdate = wdate;
@@ -76,7 +87,7 @@ public class ArticleDTO {
 	public String toString() {
 		return "ArticleDTO [ano=" + ano + ", cate=" + cate + ", title=" + title + ", content=" + content
 				+ ", comment_cnt=" + comment_cnt + ", file_cnt=" + file_cnt + ", hit_cnt=" + hit_cnt + ", writer="
-				+ writer + ", reg_ip=" + reg_ip + ", wdate=" + wdate + "]";
+				+ writer + ", reg_ip=" + reg_ip + ", wdate=" + wdate + ", nick=" + nick + "]";
 	}
 	
 }

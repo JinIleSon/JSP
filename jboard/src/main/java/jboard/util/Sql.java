@@ -20,6 +20,12 @@ public class Sql {
 											+ "VALUES (?,STANDARD_HASH(?, 'SHA256'),?,?,?,?,?,?,?,?,SYSDATE)";
 	
 	// article
+	public static final String SELECT_COUNT_TOTAL = "SELECT COUNT(*) FROM TB_ARTICLE";
+	public static final String SELECT_ARTICLE_ALL = "SELECT A.*, U.nick FROM TB_ARTICLE A "
+			+ "JOIN TB_USER U ON A.WRITER = U.USID "
+			+ "ORDER BY ANO DESC "
+			+ "OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
+	
 	public static final String SELECT_MAX_ANO = "SELECT MAX(ano) FROM TB_ARTICLE";
 	public static final String INSERT_ARTICLE = "INSERT INTO TB_ARTICLE (title, content, file_cnt, writer, reg_ip, wdate) VALUES (?,?,?,?,?,sysdate)";
 	
