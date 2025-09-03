@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jboard.util.ResultCode;
 
 @WebServlet("/user/logout.do")
 public class LogoutController extends HttpServlet{
@@ -25,6 +26,6 @@ public class LogoutController extends HttpServlet{
 		session.invalidate();
 		
 		// 이동
-		resp.sendRedirect("/jboard/user/login.do?code=102");
+		resp.sendRedirect("/jboard/user/login.do?code="+ResultCode.LOGOUT_SUCCESS.getCode());
 	}
 }

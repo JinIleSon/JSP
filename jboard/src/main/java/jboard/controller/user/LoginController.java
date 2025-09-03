@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jboard.dto.UserDTO;
 import jboard.service.UserService;
+import jboard.util.ResultCode;
 
 @WebServlet("/user/login.do")
 public class LoginController extends HttpServlet {
@@ -26,6 +27,17 @@ public class LoginController extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		String code = req.getParameter("code");
+		
+		if(code != null) {
+			
+			int messageCode = Integer.parseInt(code);
+			ResultCode rc = ResultCode.fromCode(messageCode);
+			
+			String message = rc.getMessage();
+			req.setAttribute("message", message);
+		}
 		
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/user/login.jsp");
 		dispatcher.forward(req, resp);
@@ -57,7 +69,7 @@ public class LoginController extends HttpServlet {
 			resp.sendRedirect("/jboard/article/list.do");
 		}else {
 			// 회원이 아니면 로그인 이동
-			resp.sendRedirect("/jboard/user/login.do?code=100");
+			resp.sendRedirect("/jboard/user/login.do?code="+ResultCode.LOGIN_FAIL.getCode());
 		}
 	}
 
