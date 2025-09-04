@@ -58,7 +58,7 @@ public class ArticleDAO extends DBHelper{
 		return ano;
 	}
 	
-public int selectCountTotal() {
+	public int selectCountTotal() {
 		
 		int total = 0;
 		
@@ -155,6 +155,51 @@ public int selectCountTotal() {
 		
 		return dtoList;
 	}
-	public void update(ArticleDTO dto) {}
+	
+	public List<ArticleDTO> selectArticleSearch(String searchType, String keyword) {
+		
+		List<ArticleDTO> dtoList = new ArrayList<ArticleDTO>();
+		
+		StringBuilder sql = new StringBuilder(Sql.SELECT_ARTICLE_SEARCH);
+		
+		if(searchType.equals("title")) {
+			sql.append(Sql.SEARCH_WHERE_TITLE);
+		}else if(searchType.equals("content")) {
+			sql.append(Sql.SEARCH_WHERE_CONTENT);
+		}else if(searchType.equals("nick")) {
+			sql.append(Sql.SEARCH_WHERE_NICK);
+		}
+		
+		try {
+			conn = getConnection();
+			psmt = conn.prepareStatement(sql.toString());
+			psmt.setString(1, "%" + keyword + "%" );
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				ArticleDTO dto = new ArticleDTO();
+				dto.setAno(rs.getInt(1));
+				dto.setCate(rs.getString(2));
+				dto.setTitle(rs.getString(3));
+				dto.setContent(rs.getString(4));
+				dto.setComment_cnt(rs.getInt(5));
+				dto.setFile_cnt(rs.getInt(6));
+				dto.setHit_cnt(rs.getInt(7));
+				dto.setWriter(rs.getString(8));
+				dto.setReg_ip(rs.getString(9));
+				dto.setWdate(rs.getString(10));
+				dto.setNick(rs.getString(11));
+				dtoList.add(dto);
+			}
+			closeAll();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		return dtoList;
+	}
+	
+	public void update(ArticleDTO dto) {
+		
+	}
 	public void delete(int ano) {}
 }
