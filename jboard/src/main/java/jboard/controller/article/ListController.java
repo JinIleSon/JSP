@@ -27,7 +27,7 @@ public class ListController extends HttpServlet {
 		String pg = req.getParameter("pg");
 				
 		// 페이지네이션 처리 요청
-		PagenationDTO pagenationDTO = articleService.getPagenationDTO(pg);
+		PagenationDTO pagenationDTO = articleService.getPagenationDTO(pg, null, null);
 
 		// 글 목록 조회
 		int start = pagenationDTO.getStart();

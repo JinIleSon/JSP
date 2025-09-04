@@ -47,13 +47,18 @@ public class Sql {
 														+ "JOIN TB_USER U ON C.WRITER = U.USID\r\n"
 														+ "WHERE cno = (SELECT MAX(cno) FROM TB_COMMENT)";
 	
+	public static final String SELECT_COUNT_SEARCH = "SELECT COUNT(*) FROM TB_ARTICLE A "
+														+ "JOIN TB_USER U ON A.WRITER = U.USID ";
+	
 	public static final String SELECT_ARTICLE_SEARCH = "SELECT A.*, U.NICK FROM TB_ARTICLE A\r\n"
 														+ "JOIN TB_USER U ON A.WRITER = U.USID\r\n";
 														
-	
 	public static final String SEARCH_WHERE_TITLE = "WHERE TITLE LIKE ?";
 	public static final String SEARCH_WHERE_CONTENT = "WHERE CONTENT LIKE ?";
 	public static final String SEARCH_WHERE_NICK = "WHERE NICK LIKE ?";
+
+	public static final String SEARCH_ORDER_ANO = "ORDER BY ANO DESC ";
+	public static final String SEARCH_OFFEST_ROW = "OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
 	
 	// file
 	public static final String INSERT_FILE = "INSERT INTO TB_FILE (ANO, ONAME, SNAME, RDATE) VALUES (?, ?, ?, SYSDATE)";

@@ -27,11 +27,16 @@ public class SearchListController extends HttpServlet {
 		String searchType = req.getParameter("searchType");
 		String keyword = req.getParameter("keyword");
 		
-		PagenationDTO pagenationDTO = articleService.getPagenationDTO(pg);
+	
+		PagenationDTO pagenationDTO = articleService.getPagenationDTO(pg, searchType, keyword);
 		
-		List<ArticleDTO> dtoList = articleService.findAllSearch(searchType, keyword);
+		int start = pagenationDTO.getStart();
+		List<ArticleDTO> dtoList = articleService.findAllSearch(start, searchType, keyword);
 		
 		req.setAttribute("dtoList", dtoList);
+		req.setAttribute("searchType", searchType);
+		req.setAttribute("keyword", keyword);
+		req.setAttribute("pagenationDTO", pagenationDTO);
 				
 		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/article/searchList.jsp");
 		dispatcher.forward(req, resp);
