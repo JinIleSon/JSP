@@ -70,8 +70,8 @@ public enum ArticleService {
 		return dao.selectCountTotal();
 	}
 	
-	public ArticleDTO findById(int ano) {
-		return dao.select(ano);
+	public ArticleDTO findArticleWithFile(String ano) {
+		return dao.selectArticleWithFile(ano);
 	}
 	public List<ArticleDTO> findAll(int start) {
 		return dao.selectAll(start);

@@ -6,7 +6,7 @@
         <nav>
             <h1>
                 전체 글목록
-                <span>${total}건</span>
+                <span>${pagenationDTO.total}건</span>
             </h1>
             <form action="./searchList.html">
                 <select name="searchType">
@@ -30,7 +30,7 @@
             <c:forEach var="article" items="${dtoList}" varStatus="status">
 	            <tr>
 	                <td>${pagenationDTO.currentPageStartNum - status.index}</td>
-	                <td><a href="/jboard/article/view.do">${article.title} [${article.comment_cnt}]</a></td>
+	                <td><a href="/jboard/article/view.do?ano=${article.ano}">${article.title} [${article.comment_cnt}]</a></td>
 	                <td>${article.nick}</td>
 	                <td>${article.wdate}</td>
 	                <td>${article.hit_cnt}</td>

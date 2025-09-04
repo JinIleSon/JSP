@@ -1,44 +1,48 @@
-package jboard.controller.article;
+package jboard.controller.comment;
 
 import java.io.IOException;
-import org.slf4j.Logger;
+import java.io.PrintWriter;
+import java.util.List;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jakarta.servlet.RequestDispatcher;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jboard.dto.ArticleDTO;
-import jboard.service.ArticleService;
+import jboard.dto.CommentDTO;
+import jboard.service.CommentService;
 
-@WebServlet("/article/view.do")
-public class ViewController extends HttpServlet {
+@WebServlet("/comment/list.do")
+public class ListController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	private ArticleService articleService = ArticleService.INSTANCE;
+	private CommentService commentService = CommentService.INSTANCE;
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-	
+		
 		String ano = req.getParameter("ano");
 		
-		ArticleDTO articleDTO = articleService.findArticleWithFile(ano);
-		logger.debug(articleDTO.toString());
+		List<CommentDTO> dtoList = commentService.findAll(ano);
 		
-		req.setAttribute("articleDTO", articleDTO);
+		Gson gson = new Gson();
+		String jsonString = gson.toJson(dtoList);
 		
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/WEB-INF/views/article/view.jsp");
-		dispatcher.forward(req, resp);
+		resp.setContentType("application/json; charset=UTF-8");
+		PrintWriter writer = resp.getWriter();
+		writer.print(jsonString);
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	}
 }
-

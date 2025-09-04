@@ -1,5 +1,7 @@
 package jboard.dto;
 
+import java.util.List;
+
 public class ArticleDTO {
 
 	private int ano;
@@ -15,7 +17,14 @@ public class ArticleDTO {
 	
 	// 추가 필드
 	private String nick;
+	private List<FileDTO> files;
 	
+	public List<FileDTO> getFiles() {
+		return files;
+	}
+	public void setFiles(List<FileDTO> files) {
+		this.files = files;
+	}
 	public String getNick() {
 		return nick;
 	}
@@ -87,7 +96,7 @@ public class ArticleDTO {
 	public String toString() {
 		return "ArticleDTO [ano=" + ano + ", cate=" + cate + ", title=" + title + ", content=" + content
 				+ ", comment_cnt=" + comment_cnt + ", file_cnt=" + file_cnt + ", hit_cnt=" + hit_cnt + ", writer="
-				+ writer + ", reg_ip=" + reg_ip + ", wdate=" + wdate + ", nick=" + nick + "]";
+				+ writer + ", reg_ip=" + reg_ip + ", wdate=" + wdate + ", nick=" + nick + ", files=" + files + "]";
 	}
 	
 }
